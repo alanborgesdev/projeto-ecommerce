@@ -38,6 +38,7 @@ botoesAdicionarAoCarrinho.forEach((botao) => {
             carrinho.push(produto);
         }
         salvarProdutosNoCarrinho(carrinho);
+        atualizarContadorDoCarrinho();
     });
 });
 
@@ -50,12 +51,17 @@ function obterProdutosDoCarrinho() {
     return produtos ? JSON.parse(produtos) : [];
 }
 
-// Objetivo 2 - remover produtos do carrinho:
-//     - ouvir o botão de deletar
-//     - remover do localStorage
-//     - atualizar o DOM e o total
+//passo 4 - atualizar o contador do carrinho de compras
+function atualizarContadorDoCarrinho() {
+    const carrinho = obterProdutosDoCarrinho();
+    let total = 0;
 
-// Objetivo 3 - atualizar valores do carrinho:
-//     - ouvir mudanças de quantidade
-//     - recalcular total individual
-// - recalcular total geral
+    carrinho.forEach((produto) => {
+        total += produto.quantidade;
+    });
+    
+    document.getElementById('contador-carrinho').textContent = total;
+}
+
+atualizarContadorDoCarrinho();
+
